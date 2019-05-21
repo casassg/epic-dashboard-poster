@@ -1,6 +1,6 @@
-workflow "New workflow" {
+workflow "Release pdf" {
   resolves = ["Pandoc Document Conversion"]
-  on = "push"
+  on = "release"
 }
 
 action "Pandoc Document Conversion" {
@@ -8,5 +8,14 @@ action "Pandoc Document Conversion" {
   args = "--standalone --output=pdf/main.pdf main.tex"
   env = {
     OUT_DIR = "pdf"
+  }
+}
+
+action "Release" {
+  uses = "fnkr/github-action-ghr@v1"
+  needs = ["Build"]
+  secrets = ["GITHUB_TOKEN"]
+  env = {
+    GHR_PATH = "pdf/main.pdf"
   }
 }
