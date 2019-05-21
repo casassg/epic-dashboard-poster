@@ -1,6 +1,6 @@
 workflow "Release pdf" {
-  resolves = ["Pandoc Document Conversion"]
   on = "release"
+  resolves = ["Release"]
 }
 
 action "Pandoc Document Conversion" {
@@ -11,9 +11,11 @@ action "Pandoc Document Conversion" {
   }
 }
 
+
+
 action "Release" {
   uses = "fnkr/github-action-ghr@v1"
-  needs = ["Build"]
+  needs = ["Pandoc Document Conversion"]
   secrets = ["GITHUB_TOKEN"]
   env = {
     GHR_PATH = "pdf/main.pdf"
