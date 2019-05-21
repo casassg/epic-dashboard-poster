@@ -5,8 +5,7 @@ workflow "New workflow" {
 
 action "Pandoc Document Conversion" {
   uses = "maxheld83/pandoc@v0.1.1"
-  runs = "pdflatex"
-  args = "-output-directory pdf main.tex"
+  args = "--standalone --output=pdf/main.pdf main.tex"
   env = {
     OUT_DIR = "pdf"
   }
