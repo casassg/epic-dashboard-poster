@@ -7,4 +7,7 @@ action "Pandoc Document Conversion" {
   uses = "maxheld83/pandoc@v0.1.1"
   runs = "pdflatex"
   args = "-output-directory pdf main.tex"
+  env = {
+    OUT_DIR = "pdf"
+  }
 }
